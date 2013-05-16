@@ -51,8 +51,11 @@ function AMI(params) {
             if (self.events) {
                 loginmsg.Events = self.events;
             }
-            self.send(loginmsg, function (res) {
-                if (res.Response === "Success") {
+            self.send(loginmsg, function (err, res) {
+                if (err) {
+                  self.emit('error', err.message);
+                }
+                else if (res.Response === "Success") {
                     self.emit('connect');
                 } else {
                     self.emit('error', res.Message);
@@ -97,6 +100,7 @@ function AMI(params) {
         }
         if (self.pending_actions[nicemsg.ActionID]) {
             self.pending_actions[nicemsg.ActionID].callback(null, nicemsg);
+            delete self.pending_actions[nicemsg.ActionID];
         }
     });
 
