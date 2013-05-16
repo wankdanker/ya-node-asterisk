@@ -55,7 +55,7 @@ For thorough documentation on available AMI commands check [Asterisk Wiki](https
 
     ami.on('FullyBooted', function (event) {
         console.log('Ready');
-        ami.send({Action: 'ListCommands'}, function (res) {
+        ami.send({Action: 'ListCommands'}, function (err, res) {
             console.log(util.inspect(res));
         });
         setTimeout(function () {

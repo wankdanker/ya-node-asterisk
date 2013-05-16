@@ -96,7 +96,7 @@ function AMI(params) {
             }
         }
         if (self.pending_actions[nicemsg.ActionID]) {
-            self.pending_actions[nicemsg.ActionID].callback(nicemsg);
+            self.pending_actions[nicemsg.ActionID].callback(null, nicemsg);
         }
     });
 
@@ -107,6 +107,10 @@ function AMI(params) {
             token = self.pending_actions[i];
             token.ttl -= 1;
             if (token.ttl === 0) {
+                self.pending_actions[i].callback({
+                    message : "Server did not respond in time."
+                });
+
                 delete self.pending_actions[i];
             }
         }
