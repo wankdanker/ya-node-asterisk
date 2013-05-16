@@ -24,6 +24,8 @@ var AMI = require('yana'),
 
 AMI is an EventEmitter and so it emits events of a few kinds:
  * 'connect' fires upon successful login
+ * 'end' fires when the server sends a FIN packet
+ * 'close' fires when the connection to the server is fully closed
  * 'error' fires on any connection related errors
  * 'event' fires on every event sent by Asterisk
 It is possible to suscribe to specific Asterisk events by their names like 'FullyBooted' or 'PeerStatus'.

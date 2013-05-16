@@ -120,6 +120,14 @@ function AMI(params) {
         self.emit('error', 'Socket error: ' + err.code);
     });
 
+    this.socket.on('end', function () {
+        self.emit('end');
+    });
+
+    this.socket.on('close', function (hadError) {
+        self.emit('close', hadError);
+    });
+
     this.socket.connect(this.port, this.host);
 }
 
